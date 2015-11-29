@@ -10,7 +10,7 @@ var makerPage = function(req, res) {
       return res.status(400).json({ error: 'An error occured' });
     }
     
-    res.render('char', { /*csrfToken: req.csrfToken(),*/ chars: docs });
+    res.render('app', { /*csrfToken: req.csrfToken(),*/ chars: docs });
   });
 };
 
@@ -29,16 +29,7 @@ var makeChar = function(req, res) {
     intelligence: req.body.intelligence,
     wisdom: req.body.wisdom,
     charisma: req.body.charisma,
-    owner: req.session.account._id,
-    charID: function() {
-      var text = "";
-      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  
-      for( var i=0; i < 10; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-      return text;
-    }
+    owner: req.session.account._id
   };
   
   var newChar = new Char.CharModel(charData);
@@ -49,16 +40,16 @@ var makeChar = function(req, res) {
       return res.status(400).json({ error: 'An error occured' });
     }
     
-    res.json({ redirect: '/charSelect' });
+    res.json({ redirect: '/play' });
   });
 };
 
-var deleteChar = function(req, res) {
+/*var deleteChar = function(req, res) {
   
   
-  res.json({ redirect: '/charSelect' });
-};
+  res.json({ redirect: '/play' });
+};*/
 
 module.exports.makerPage = makerPage;
 module.exports.make = makeChar;
-module.exports.delete = deleteChar;
+//module.exports.delete = deleteChar;

@@ -23,7 +23,7 @@ var login = function(req, res) {
     
     req.session.account = account.toAPI();
     
-    res.json({ redirect: '/charSelect' });
+    res.json({ redirect: '/play' });
   });
 };
 
@@ -47,7 +47,7 @@ var signup = function(req, res) {
       
       req.session.account = newAccount.toAPI();
       
-      res.json({ redirect: '/charSelect' });
+      res.json({ redirect: '/play' });
     });
   });
 };

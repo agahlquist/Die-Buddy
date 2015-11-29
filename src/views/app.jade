@@ -1,0 +1,55 @@
+extends ./base.jade
+block append style
+    link(rel="stylesheet", type="text/css", href="/assets/style.css")
+block body
+  nav
+    a.navlink.button#charButton(href="#") Chars
+    a.navlink.button#logout(href="/logout") Log out
+    
+  section#charArea
+    .charAreaButton.button
+      a#createChar(href="#") Create Character
+    h3.charTitle Characters:
+    div.charSelect
+      if !chars || chars.length == 0
+        h3 None found
+      else
+        each val, index in chars
+          div.char
+            h3.charName.charContent #{val.name}
+            a#deleteChar.charContent.button(href="#", title="Delete Character") X
+            a#selectChar.charContent.button(href="#", title="Select Character") >
+    .charAreaButton.button
+      a#closeCharArea(href="#") Close Menu
+          
+  section#makeChar
+    form#charForm(class="charForm", name="charForm", action="/makechar", method="POST")
+      input#charName(type="text", name="name", placeholder="Char Name")
+      .col1-2.Left
+        .charStat
+          label(for="strength") Str
+          input#charStr(type="number", name="strength", value="")
+        .charStat
+          label(for="dexterity") Dex
+          input#charDex(type="number", name="dexterity",  value="")
+        .charStat
+          label(for="constitution") Con
+          input#charCon(type="number", name="constitution", value="")
+      .col1-2.Right
+        .charStat
+          label(for="intelligence") Int
+          input#charInt(type="number", name="intelligence", value="")
+        .charStat
+          label(for="wisdom") Wis
+          input#charWis(type="number", name="wisdom", value="")
+        .charStat
+          label(for="charisma") Cha
+          input#charCha(type="number", name="charisma", value="")
+      a.button#cancelCharSubmit(class="cancelCharSubmit", href="#") Cancel
+      a.button#makeCharSubmit(class="makeCharSubmit", href="#") Save
+      
+  section#playArea
+    
+    
+block scripts
+        script(src="/assets/character.js")

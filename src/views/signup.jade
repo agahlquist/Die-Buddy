@@ -1,0 +1,26 @@
+extends ./base.jade
+block append style
+    link(rel="stylesheet", type="text/css", href="/assets/style.css")
+    
+block body
+  section#signup
+    form#signupForm(class="mainForm", name="signupForm", action="/signup", method="POST")
+      label(for="username") Username: 
+      input#user(type="text", name="username", placeholder="username")
+      
+      br
+      
+      label(for="pass") Password: 
+      input#pass(type="password", name="pass", placeholder="password")
+      
+      br
+      
+      label(for="pass2") Password: 
+      input#pass2(type="password", name="pass2", placeholder="retype password")
+      
+      input(type="hidden", name="_csrf", value="#{csrfToken}")
+      a.button#signupSubmit(class="formSubmit", href="#") Sign up
+      a(class="altFormSubmit", href="/login") Have an account? Click here to log in
+    
+block scripts
+        script(src="/assets/client.js")

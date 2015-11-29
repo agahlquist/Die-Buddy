@@ -5,7 +5,7 @@ var requiresLogin = function(req, res, next) {
 };
 
 var requiresLogout = function(req, res, next) {
-  if(req.session.account) return res.redirect('/charSelect');
+  if(req.session.account) return res.redirect('/play');
   
   next();
 };
@@ -24,10 +24,8 @@ module.exports.requiresLogin = requiresLogin;
 module.exports.requiresLogout = requiresLogout;
 
 if(process.env.NODE_ENV == 'production') {
-  console.log('production jawn');
   module.exports.requiresSecure = requireSecure;
 }
 else {
-  console.log('development jawn');
   module.exports.requiresSecure = bypassSecure;
 }

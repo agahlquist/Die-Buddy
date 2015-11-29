@@ -70,5 +70,5 @@ router(app);
 
 app.listen(port, function(err) {
   if(err) throw err;
-  console.log('istening on port ' + port);
+  console.log('listening on port ' + port);
 });
