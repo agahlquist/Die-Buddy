@@ -3,8 +3,13 @@ block append style
     link(rel="stylesheet", type="text/css", href="/assets/style.css")
 block body
   nav
-    button.navlink.btn#charButton Chars
-    button.navlink.btn#logout(href="/logout") Log out
+    .col1-3
+      button.navcontent.btn#charButton Chars
+    .navtitle.col1-3
+      h3.navcontent#roomCode Room:
+      button.btn#help ?
+    .col1-3#rightnav
+      button.navcontent.btn#logout(href="/logout") Log out
     
   section#charArea
     button.btn#createChar Create Character
@@ -18,7 +23,15 @@ block body
             h3.charName.charContent #{val.name}
             button.charContent.btn.delete#deleteChar(title="Delete Character") X
             button.charContent.btn.select#selectChar(title="Select Character") >
-    button.btn#closeCharArea(href="#") Close Menu
+    button.btn#closeCharArea Close Menu
+    
+  section#helpArea
+    p Enter another code below to join a different session!
+    form#joinForm(class="joinForm", name="joinForm", action="/play", method="GET")
+      label(for="join") Enter Code:
+      input#joinCode(type="text", name="join", placeholder="Room Code")
+      button.btn#joinButton Join
+    button.btn#closeHelpArea Close Menu
           
   section#makeChar
     form#charForm(class="charForm", name="charForm", action="/makechar", method="POST")
@@ -43,8 +56,8 @@ block body
         .charStat
           label(for="charisma") Cha
           input#charCha(type="number", name="charisma", value="")
-      a.button#cancelCharSubmit(class="cancelCharSubmit", href="#") Cancel
-      a.button#makeCharSubmit(class="makeCharSubmit", href="#") Save
+      button.btn#cancelCharSubmit Cancel
+      button.btn#makeCharSubmit Save
       
   section#playArea
     section#party.col1-4

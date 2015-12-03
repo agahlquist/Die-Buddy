@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 $(document).ready(function() {
 
@@ -7,15 +7,15 @@ $(document).ready(function() {
   }
   
   function resetFields() {
-    $("#makeChar").css('box-shadow', 'none');
+    $('#makeChar').css('box-shadow', 'none');
     
-    $("#charName").val("");
-    $("#charStr").val("");
-    $("#charDex").val("");
-    $("#charCon").val("");
-    $("#charInt").val("");
-    $("#charWis").val("");
-    $("#charCha").val("");
+    $('#charName').val('');
+    $('#charStr').val('');
+    $('#charDex').val('');
+    $('#charCon').val('');
+    $('#charInt').val('');
+    $('#charWis').val('');
+    $('#charCha').val('');
   }
 
   function sendAjax(action, data) {
@@ -23,10 +23,10 @@ $(document).ready(function() {
     console.log(data);
     $.ajax({
       cache: false,
-      type: "POST",
+      type: 'POST',
       url: action,
       data: data,
-      dataType: "json",
+      dataType: 'json',
       success: function(result, status, xhr) {
         console.log(result);
         window.location = result.redirect;
@@ -40,71 +40,87 @@ $(document).ready(function() {
   }
   
   //Nav Bar Buttons
-  $("#logout").on("click", function(e) {
+  $('#logout').on('click', function(e) {
     e.preventDefault();
     window.location.href = '/logout';
   });
   
-  $("#charButton").on("click", function(e) {
+  $('#charButton').on('click', function(e) {
     e.preventDefault();
     
-    $("#charArea").animate({
+    $('#charArea').animate({
       top: '0'
     });
   });
   
-  
-  //Char Area Buttons
-  $("#createChar").on("click", function(e) {
+  $('#help').on('click', function(e) {
     e.preventDefault();
     
-    $("#makeChar").css({
+    $('#helpArea').animate({
+      top: '0'
+    });
+  });
+  
+  //Help Area Buttons
+  $('#closeHelpArea').on('click', function(e) {
+    e.preventDefault();
+    
+    $('#helpArea').animate({
+      top: '-500'
+    });
+  });
+  
+  //Char Area Buttons
+  $('#createChar').on('click', function(e) {
+    e.preventDefault();
+    
+    $('#makeChar').css({
       display: 'block'
     });
   });
   
-  $("#closeCharArea").on("click", function(e) {
+  $('#closeCharArea').on('click', function(e) {
     e.preventDefault();
     
-    $("#charArea").animate({
+    $('#charArea').animate({
       top: '-500'
     });
   });
 
   //Char Form Buttons
-  $("#makeCharSubmit").on("click", function(e) {
+  $('#makeCharSubmit').on('click', function(e) {
     e.preventDefault();
     
-    if($("#charName").val() == '' ||
-       $("#charStr").val() == '' || $("#charDex").val() == '' || $("#charCon").val() == '' ||
-       $("#charInt").val() == '' || $("#charWis").val() == '' || $("#charCha").val() == '') {
-      handleError("All fields are required!");
+    if($('#charName').val() == '' ||
+       $('#charStr').val() == '' || $('#charDex').val() == '' || $('#charCon').val() == '' ||
+       $('#charInt').val() == '' || $('#charWis').val() == '' || $('#charCha').val() == '') {
+      handleError('All fields are required!');
       return false;
     }
     
-    sendAjax($("#charForm").attr("action"), $("#charForm").serialize());
+    sendAjax($('#charForm').attr('action'), $('#charForm').serialize());
     
-    $("#makeChar").css({
+    $('#makeChar').css({
       display: 'none'
     }, resetFields);
 
     return false;
   });
   
-  $("#addChar").on("click", function(e) {
+  $('#addChar').on('click', function(e) {
     e.preventDefault();
     
-    $("#makeChar").animate({
+    $('#makeChar').animate({
       left: $(window).width()/2-200
     }, 400, function() {
-      $("#makeChar").css('box-shadow', '0 0 100000px #000');
+      $('#makeChar').css('box-shadow', '0 0 100000px #000');
     });
   });
   
-  $("#cancelCharSubmit").on("click", function(e) {
+  $('#cancelCharSubmit').on('click', function(e) {
     e.preventDefault();
     
-    $("#makeChar").css({
+    $('#makeChar').css({
       display: 'none'
     });
   });

@@ -40,6 +40,7 @@ var makeChar = function(req, res) {
       return res.status(400).json({ error: 'An error occured' });
     }
     
+    res.json({  });
     res.json({ redirect: '/play' });
   });
 };
