@@ -3,12 +3,11 @@ block append style
     link(rel="stylesheet", type="text/css", href="/assets/style.css")
 block body
   nav
-    a.navlink.button#charButton(href="#") Chars
-    a.navlink.button#logout(href="/logout") Log out
+    button.navlink.btn#charButton Chars
+    button.navlink.btn#logout(href="/logout") Log out
     
   section#charArea
-    .charAreaButton.button
-      a#createChar(href="#") Create Character
+    button.btn#createChar Create Character
     h3.charTitle Characters:
     div.charSelect
       if !chars || chars.length == 0
@@ -17,10 +16,9 @@ block body
         each val, index in chars
           div.char
             h3.charName.charContent #{val.name}
-            a#deleteChar.charContent.button(href="#", title="Delete Character") X
-            a#selectChar.charContent.button(href="#", title="Select Character") >
-    .charAreaButton.button
-      a#closeCharArea(href="#") Close Menu
+            button.charContent.btn.delete#deleteChar(title="Delete Character") X
+            button.charContent.btn.select#selectChar(title="Select Character") >
+    button.btn#closeCharArea(href="#") Close Menu
           
   section#makeChar
     form#charForm(class="charForm", name="charForm", action="/makechar", method="POST")
@@ -49,7 +47,11 @@ block body
       a.button#makeCharSubmit(class="makeCharSubmit", href="#") Save
       
   section#playArea
-    
+    section#party.col1-4
+    section#chatArea.col2-4
+    section#diceSelector.col1-4
     
 block scripts
         script(src="/assets/character.js")
+        script(src="/socket.io/socket.io.js")
+        script(src="/assets/play.js")

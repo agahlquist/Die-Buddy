@@ -9,6 +9,10 @@ var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var url = require('url');
 var csrf = require('csurf');
+var socketio = require('socket.io');
+
+var users = {};
+var rooms = {};
 
 var dbURL = process.env.MONGOLAB_URI || "mongodb://localhost/MVC-Project";
 
@@ -33,6 +37,7 @@ if(process.env.REDISCLOUD_URL) {
 
 var router = require('./router.js');
 
+var server;
 var port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 var app = express();
@@ -68,7 +73,12 @@ app.use(cookieParser());
 
 router(app);
 
-app.listen(port, function(err) {
+server = app.listen(port, function(err) {
   if(err) throw err;
   console.log('listening on port ' + port);
 });
+
+var io = socketio.listen(server);
+var sockets = require('./sockets.js');
+
+sockets.configureSockets(io);

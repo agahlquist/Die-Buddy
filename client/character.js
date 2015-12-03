@@ -39,7 +39,12 @@ $(document).ready(function() {
     });        
   }
   
-  //Char Button on Nav
+  //Nav Bar Buttons
+  $("#logout").on("click", function(e) {
+    e.preventDefault();
+    window.location.href = '/logout';
+  });
+  
   $("#charButton").on("click", function(e) {
     e.preventDefault();
     
