@@ -31,11 +31,6 @@ function init() {
     //find char in database
     socket.emit('select-char');
   });
-  
-  $('.delete').on('click', function() {
-    socket.emit('delete-char');
-  });
-  
 }
 
 window.onload = init;

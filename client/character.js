@@ -7,8 +7,6 @@ $(document).ready(function() {
   }
   
   function resetFields() {
-    $('#makeChar').css('box-shadow', 'none');
-    
     $('#charName').val('');
     $('#charStr').val('');
     $('#charDex').val('');
@@ -19,8 +17,8 @@ $(document).ready(function() {
   }
 
   function sendAjax(action, data) {
-    console.log(action);
-    console.log(data);
+    console.log('sendAjax(action): ' + action);
+    console.log('sendAjax(data): ' + data);
     $.ajax({
       cache: false,
       type: 'POST',
@@ -29,14 +27,29 @@ $(document).ready(function() {
       dataType: 'json',
       success: function(result, status, xhr) {
         console.log(result);
-        window.location = result.redirect;
+        switch(result.type) {
+          case 'makechar':
+            $('.charSelect').append(
+              '<div class="char">' + 
+              '<h3 class="charName charContent">' + result.name + '</h3>' +
+              '<button class="charContent btn delete", id="deleteChar", title=""Delete Character">X</button>' +
+              '<button class="charContent btn select", id="selectChar", title=""Select Character">></button>' +
+              '</div>');
+            console.log('added div');
+            break;
+            
+          case 'deletechar':
+            console.log(result.id);
+            $("#" + result.id).remove();
+            break;
+        }
       },
       error: function(xhr, status, error) {
         console.log('wat');
         var messageObj = JSON.parse(xhr.responseText);
         handleError(messageObj.error);
       }
-    });        
+    }); 
   }
   
   //Nav Bar Buttons
@@ -86,6 +99,14 @@ $(document).ready(function() {
       top: '-500'
     });
   });
+  
+  $('.delete').on('click', function(e) {
+    e.preventDefault();
+    
+    sendAjax($('#deleteChar').attr('action'), { id: $(this).parent().attr('id') });
+    
+    return false;
+  });
 
   //Char Form Buttons
   $('#makeCharSubmit').on('click', function(e) {
@@ -102,19 +123,10 @@ $(document).ready(function() {
     
     $('#makeChar').css({
       display: 'none'
-    }, resetFields);
+    });
+    resetFields();
 
     return false;
-  });
-  
-  $('#addChar').on('click', function(e) {
-    e.preventDefault();
-    
-    $('#makeChar').animate({
-      left: $(window).width()/2-200
-    }, 400, function() {
-      $('#makeChar').css('box-shadow', '0 0 100000px #000');
-    });
   });
   
   $('#cancelCharSubmit').on('click', function(e) {
@@ -123,5 +135,6 @@ $(document).ready(function() {
     $('#makeChar').css({
       display: 'none'
     });
+    resetFields();
   });
 });

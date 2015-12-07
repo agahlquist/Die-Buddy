@@ -40,17 +40,28 @@ var makeChar = function(req, res) {
       return res.status(400).json({ error: 'An error occured' });
     }
     
-    res.json({  });
-    res.json({ redirect: '/play' });
+    res.json({ type: 'makechar', name: charData.name });
   });
 };
 
-/*var deleteChar = function(req, res) {
-  
-  
-  res.json({ redirect: '/play' });
-};*/
+var deleteChar = function(req, res) {
+  var selectedChar = Char.CharModel.findByOwner(req.session.account._id, function(err, doc) {
+    if(err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+    
+    for(var i = 0; i < doc.length; i++) {
+      if(doc[i].id == req.body.id) {
+        console.log('deleting ' + doc[i].name);
+        doc[i].remove();
+      }
+    }
+    
+    res.json({ type: 'deletechar', id: req.body.id });
+  });
+};
 
 module.exports.makerPage = makerPage;
 module.exports.make = makeChar;
-//module.exports.delete = deleteChar;
+module.exports.delete = deleteChar;

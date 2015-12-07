@@ -1,3 +1,5 @@
+var models = require('./models');
+
 var io;
 var rooms = {};
 var users = {};
@@ -62,10 +64,6 @@ var configureSockets = function(socketio) {
     
     socket.on('select-char', function(data) {
       console.log('char selected');
-    });
-    
-    socket.on('delete-char', function(data) {
-      console.log('char deleted');
     });
     
     socket.on('roll', function(data) {
