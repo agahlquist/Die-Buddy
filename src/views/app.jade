@@ -6,8 +6,10 @@ block body
     .col1-3
       button.navcontent.btn#charButton Chars
     .navtitle.col1-3
-      h3.navcontent#roomCode Room:
-      button.btn#help ?
+      //h3.navcontent#roomCode Room:
+      //button.btn#help ?
+      button.navcontent.btn#hostButton Host
+      button.navcontent.btn#joinButton Join
     .col1-3#rightnav
       button.navcontent.btn#logout(href="/logout") Log out
     
@@ -25,13 +27,12 @@ block body
             button.charContent.btn.select#selectChar(title="Select Character") >
     button.btn#closeCharArea Close Menu
     
-  section#helpArea
-    p Enter another code below to join a different session!
+  section#joinArea
     form#joinForm(class="joinForm", name="joinForm", action="/play", method="GET")
       label(for="join") Enter Code:
       input#joinCode(type="text", name="join", placeholder="Room Code")
-      button.btn#joinButton Join
-    button.btn#closeHelpArea Close Menu
+      button.btn#connectButton Connect
+    button.btn#closeJoinArea Close Menu
           
   section#makeChar
     form#charForm(class="charForm", name="charForm", action="/makechar", method="POST")

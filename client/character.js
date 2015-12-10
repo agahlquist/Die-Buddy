@@ -66,23 +66,6 @@ $(document).ready(function() {
     });
   });
   
-  $('#help').on('click', function(e) {
-    e.preventDefault();
-    
-    $('#helpArea').animate({
-      top: '0'
-    });
-  });
-  
-  //Help Area Buttons
-  $('#closeHelpArea').on('click', function(e) {
-    e.preventDefault();
-    
-    $('#helpArea').animate({
-      top: '-500'
-    });
-  });
-  
   //Char Area Buttons
   $('#createChar').on('click', function(e) {
     e.preventDefault();

@@ -4,8 +4,6 @@ var io;
 var rooms = {};
 var users = {};
 
-//figure room shit
-
 var configureSockets = function(socketio) {
   io = socketio;
   
@@ -25,6 +23,15 @@ var configureSockets = function(socketio) {
       console.log(r);
       
       socket.join(r);
+      
+      rooms[data.room].players++;
+      users[socket.id] = {
+        socket: socket,
+        room: data.room,
+        host: true
+      };
+      
+      console.log(users);
       
       io.to(socket.id).emit('hostRoom', data);
     });
@@ -55,7 +62,7 @@ var configureSockets = function(socketio) {
       console.log(/*data.name + */'disconnected');
       
       if(users[socket.id]) {
-        rooms[users[socket/id].room].players--;
+        rooms[users[socket.id].room].players--;
         delete users[socket.id];
       }
       //data.roomcode?
