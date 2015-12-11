@@ -20,7 +20,6 @@ var configureSockets = function(socketio) {
       };
       
       var data = { room: r };
-      console.log(r);
       
       socket.join(r);
       
@@ -28,10 +27,9 @@ var configureSockets = function(socketio) {
       users[socket.id] = {
         socket: socket,
         room: data.room,
-        host: true
+        host: true,
+        rolling: false
       };
-      
-      console.log(users);
       
       io.to(socket.id).emit('hostRoom', data);
     });
@@ -48,8 +46,18 @@ var configureSockets = function(socketio) {
         rooms[data.room].players++;
         users[socket.id] = {
           socket: socket,
-          room: data.room
+          room: data.room,
+          host: false,
+          rolling: false
         };
+        
+        /// TypeError: Cannot read property 'forEach' of undefined ?
+//        users.forEach(function(user) {
+//          console.log(user);
+//        });
+        
+        //For the time being I guess
+        data.party = users;
         
         io.to(socket.id).emit('player connect', data);
         socket.join(data.room);
@@ -65,8 +73,6 @@ var configureSockets = function(socketio) {
         rooms[users[socket.id].room].players--;
         delete users[socket.id];
       }
-      //data.roomcode?
-      //socket.leave('');
     });
     
     socket.on('select-char', function(data) {

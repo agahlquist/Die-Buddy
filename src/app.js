@@ -11,9 +11,6 @@ var url = require('url');
 var csrf = require('csurf');
 var socketio = require('socket.io');
 
-var users = {};
-var rooms = {};
-
 var dbURL = process.env.MONGOLAB_URI || "mongodb://localhost/MVC-Project";
 
 var db = mongoose.connect(dbURL, function(err) {

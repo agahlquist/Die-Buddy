@@ -3,10 +3,6 @@
 var socket;
 var room = '';
 
-function handleSocketMessage(data) {
-
-}
-
 function init() {
   socket = io.connect();
   
@@ -31,13 +27,22 @@ function init() {
     e.preventDefault();
     if($('#joinCode').val() == '' || $('#joinCode').val().length < 4) alert('Input a room code!');
     
-    var rc = $('#joinCode').val();
+    var rc = $('#joinCode').val().toUpperCase();
     var sendData = {
       room: rc,
-      id: socket.id
+      id: -1
     };
     
-    //socket.emit('player join', sendData);
+    $('#joinArea').animate({
+      top: '-500'
+    });
+    
+    socket.emit('player join', sendData);
+  });
+  
+  $('.select').on('click', function() {
+    //find char in database
+    socket.emit('select-char');
   });
   
   //Sockets
@@ -53,13 +58,20 @@ function init() {
     $('.navtitle').text('Room: ' + room);
   });
   
-  socket.on('msg', function() {
-    //chat functionality
+  socket.on('player connect', function(data) {
+    if(data.id !== -1) {
+      room = data.room;
+      $('.navtitle').text('Room: ' + room);
+      
+      console.log('joined room: ' + data.room);
+      console.log(data.party);
+    } else {
+      alert('Room not found!');
+    }
   });
   
-  $('.select').on('click', function() {
-    //find char in database
-    socket.emit('select-char');
+  socket.on('msg', function() {
+    //chat functionality
   });
 }
 
