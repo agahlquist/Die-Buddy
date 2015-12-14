@@ -6,15 +6,14 @@ block body
     .col1-3
       button.navcontent.btn#charButton Chars
     .navtitle.col1-3
-      //h3.navcontent#roomCode Room:
-      //button.btn#help ?
       button.navcontent.btn#hostButton Host
       button.navcontent.btn#joinButton Join
     .col1-3#rightnav
       button.navcontent.btn#logout(href="/logout") Log out
     
   section#charArea
-    button.btn#createChar Create Character
+    div.charAreaButton
+      button.btn#createChar Create Character
     h3.charTitle Characters:
     div.charSelect
       if !chars || chars.length == 0
@@ -24,8 +23,9 @@ block body
           div.char(id="#{val._id}")
             h3.charName.charContent #{val.name}
             button.charContent.btn.delete#deleteChar(title="Delete Character", action="/deletechar") X
-            button.charContent.btn.select#selectChar(title="Select Character") >
-    button.btn#closeCharArea Close Menu
+            button.charContent.btn.select#selectChar(title="Select Character", action="/selectchar") >
+    div.charAreaButton
+      button.btn#closeCharArea Close Menu
     
   section#joinArea
     form#joinForm(class="joinForm", name="joinForm", action="/play", method="GET")
@@ -62,8 +62,46 @@ block body
       
   section#playArea
     section#party.col1-4
+      div#partyMembers
+        p.emptyParty Host or Join a room to connect with others!
+      div#activeChar
+        p.emptyActive until you create then select a character!
     section#chatArea.col2-4
+      div#chatLog
+      div#chat
+        input#chatBox(type="text", name="chatBox", placeholder="Enter message")
+        button.btn#chatButton Send
     section#diceSelector.col1-4
+      h3.dieTitle Select Die
+      .diePool
+        .col1-2
+          .die
+            img(src="assets/img/d4.png", alt="d4")
+            br
+            input#d4input(type="number", name="d4", value="0")
+          .die
+            img(src="assets/img/d6.png", alt="d6")
+            br
+            input#d6input(type="number", name="d6", value="0")
+          .die
+            img(src="assets/img/d8.png", alt="d8")
+            br
+            input#d8input(type="number", name="d8", value="0")
+        .col1-2
+          .die
+            img(src="assets/img/d10.png", alt="d10")
+            br
+            input#d10input(type="number", name="d10", value="0")
+          .die
+            img(src="assets/img/d12.png", alt="d12")
+            br
+            input#d12input(type="number", name="d12", value="0")
+          .die
+            img(src="assets/img/d20.png", alt="d20")
+            br
+            input#d20input(type="number", name="d20", value="0")
+        .die
+          button.btn#rollButton Roll
     
 block scripts
         script(src="/assets/character.js")

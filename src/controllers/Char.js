@@ -62,6 +62,82 @@ var deleteChar = function(req, res) {
   });
 };
 
+var selectChar = function(req, res) {
+  var selectedChar = Char.CharModel.findByOwner(req.session.account._id, function(err, doc) {
+    if(err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+    
+    var charData;
+    
+    for(var i = 0; i < doc.length; i++) {
+      if(doc[i].id == req.body.id) {
+        console.log('selecting: ' + doc[i].name);
+        charData = doc[i];
+      }
+    }
+    
+    res.json({ type: 'selectchar', char: charData });
+  });
+};
+
+var editChar = function(req, res) {
+  var updatedChar = Char.CharModel.findByOwner(req.session.account._id, function(err, doc) {
+    if(err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+    
+    var charData;
+    
+    for(var i = 0; i < doc.length; i++) {
+      if(doc[i].id == req.body.old.id) {
+        console.log('updating: ' + doc[i].name);
+        doc[i].name = req.body.update.name;
+        doc[i].strength = req.body.update.str;
+        doc[i].dexterity = req.body.update.dex;
+        doc[i].constitution = req.body.update.con;
+        doc[i].intelligence = req.body.update.int;
+        doc[i].wisdom = req.body.update.wis;
+        doc[i].charisma = req.body.update.cha;
+        
+        charData = doc[i];
+        
+        doc[i].save(function(err) {
+          if(err) {
+            console.log('update saev err: ' + err);
+            return res.status(400).json({ error: 'An error occured' });
+          }
+          
+          res.json({ type: 'updatechar', char: charData });
+        });
+      }
+    }
+    
+  });
+  /*var updatedChar = Char.CharModel.findByIdAndUpdate(req.session.account._id, {
+    $set: {
+      name: req.body.update.name,
+      strength: req.body.update.str,
+      dexterity: req.body.update.dex,
+      constitution: req.body.update.con,
+      intelligence: req.body.update.int,
+      wisdom: req.body.update.wis,
+      charisma: req.body.update.cha
+    }
+  }, function(err, doc) {
+    if(err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+    
+    console.log('update doc: ' + doc);
+  });*/
+};
+
 module.exports.makerPage = makerPage;
 module.exports.make = makeChar;
 module.exports.delete = deleteChar;
+module.exports.select = selectChar;
+module.exports.edit = editChar;
