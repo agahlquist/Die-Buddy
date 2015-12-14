@@ -59,6 +59,8 @@ function init() {
 
     $('#joinArea').animate({
       top: '-500'
+    }, 400, function() {
+      $('.overlay').css({ 'visibility': 'hidden' })
     });
 
     socket.emit('player join', sendData);
