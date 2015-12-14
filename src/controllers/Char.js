@@ -40,7 +40,7 @@ var makeChar = function(req, res) {
       return res.status(400).json({ error: 'An error occured' });
     }
     
-    res.json({ type: 'makechar', name: charData.name });
+    res.json({ type: 'makechar', char: newChar });
   });
 };
 

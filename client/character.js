@@ -29,8 +29,8 @@ $(document).ready(function() {
         switch(result.type) {
           case 'makechar':
             $('.charSelect').append(
-              '<div class="char">' + 
-              '<h3 class="charName charContent">' + result.name + '</h3>' +
+              '<div id ="' + result.char._id + '" class="char">' + 
+              '<h3 class="charName charContent">' + result.char.name + '</h3>' +
               '<button class="charContent btn delete" id="deleteChar" title=""Delete Character">X</button>' +
               '<button class="charContent btn select" id="selectChar" title=""Select Character">></button>' +
               '</div>');
@@ -122,6 +122,8 @@ $(document).ready(function() {
       handleError('All fields are required!');
       return false;
     }
+    
+    if($('.charSelect').html() == '<h3>None found</h3>') $('.charSelect').html('')
 
     sendAjax($('#charForm').attr('action'), $('#charForm').serialize());
 

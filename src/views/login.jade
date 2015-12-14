@@ -3,21 +3,21 @@ block append style
     link(rel="stylesheet", type="text/css", href="/assets/style.css")
     
 block body
-  section#login
-    form#loginForm(class="mainForm", name="loginForm", action="/login", method="POST")
-      label(for="username") Username: 
-      input#user(type="text", name="username", placeholder="username")
-      
-      br
-      
-      label(for="pass") Password: 
-      input#pass(type="password", name="pass", placeholder="password")
-      
-      br
-      
-      input(type="hidden", name="_csrf", value="#{csrfToken}")
-      button.btn#loginSubmit Log in
-      a(class="altFormSubmit", href="/signup") No account? Click here to register
+  #wrapper
+    .centered
+      h1(class="maintitle") Die, Buddy
+      section#login
+        form#loginForm(class="mainForm", name="loginForm", action="/login", method="POST")
+          .loginsect
+            label(for="username") Username 
+            input#user(type="text", name="username", placeholder="username")
+          .loginsect
+            label(for="pass") Password
+            input#pass(type="password", name="pass", placeholder="password")
+          input(type="hidden", name="_csrf", value="#{csrfToken}")
+          .loginButtons
+            button.btn#loginSubmit Log in
+            a(class="altFormSubmit", href="/signup") No account? Click here to register
       
 block scripts
     script(src="/assets/login.js")
