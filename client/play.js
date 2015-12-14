@@ -31,12 +31,16 @@ function init() {
   $('#joinButton').on('click', function() {
     $('#joinArea').animate({
       top: '0'
+    }, 400, function() {
+      $('.overlay').css({ 'visibility': 'visible' })
     });
   });
 
   $('#closeJoinArea').on('click', function() {
     $('#joinArea').animate({
       top: '-500'
+    }, 400, function() {
+      $('.overlay').css({ 'visibility': 'hidden' })
     });
   });
 

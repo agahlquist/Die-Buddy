@@ -71,6 +71,8 @@ $(document).ready(function() {
 
     $('#charArea').animate({
       top: '0'
+    }, 400, function() {
+      $('.overlay').css({ 'visibility': 'visible' })
     });
   });
 
@@ -88,6 +90,8 @@ $(document).ready(function() {
 
     $('#charArea').animate({
       top: '-500'
+    }, 400, function() {
+      $('.overlay').css({ 'visibility': 'hidden' })
     });
   });
 
