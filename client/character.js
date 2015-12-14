@@ -111,6 +111,8 @@ $(document).ready(function() {
 
     $('#charArea').animate({
       top: '-500'
+    }, 400, function() {
+      $('.overlay').css({ 'visibility': 'hidden' })
     });
 
     return false;
