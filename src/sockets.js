@@ -124,7 +124,7 @@ var configureSockets = function(socketio) {
       sendData = users[socket.id].activeChar.name + ': ' + data;
       
       if(users[socket.id].room) io.to(users[socket.id].room).emit('msg', sendData);
-      else io.to(socket.id).emit('msg', sendData)
+      else io.to(socket.id).emit('msg', sendData);
     });
   });
 };
